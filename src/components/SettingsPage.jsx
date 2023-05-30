@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import LanguagesContext from '../contexts/LanguagesContext';
 import { getTranslatorForLanguage } from '../translations';
 
 const SettingsPage = () => {
   // TODO: change that to take the current language from Context instead of hardcoding "en"
-  const t = getTranslatorForLanguage('en');
+  const { currentLanguage, setCurrentLanguage } = useContext(LanguagesContext);
+  const t = getTranslatorForLanguage(currentLanguage);
 
   return (
     <div>
@@ -14,10 +16,10 @@ const SettingsPage = () => {
       <select
         id="language"
         name="language"
-        defaultValue={t} // TODO: get the default language from context
+        defaultValue={currentLanguage} // TODO: get the default language from context
         onChange={(event) => {
           const newLang = event.target.value;
-          console.log(newLang);
+          setCurrentLanguage(newLang);
           // TODO: set the (new) currentLanguage globally in the Context
         }}
       >
